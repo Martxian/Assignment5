@@ -1,0 +1,262 @@
+body, html {
+  background-color: #0D1821;
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 0px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'logo main main main main'
+    'sidebar main main main main'
+    'sidebar searchbar searchbar searchbar searchbar'
+    'sidebar content1 content2 content3 content4'
+    'sidebar content1 content2 content3 content4'
+    'footer footer footer footer footer';
+  grid-gap: 0.5rem;
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 16px;
+  color: maroon
+}
+
+a {
+  display: block;
+}
+
+a:hover {
+  background-color: white;
+}
+
+figcaption {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 10px;
+  color: skyblue;
+}
+
+.main {
+  grid-area: main;
+}
+
+.main img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+figure {
+  padding: 2px;
+  margin: auto;
+  overflow: auto;
+}
+
+.main-navbar {
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  background-color: #333;
+  bottom: 0;
+  width: 100%;
+}
+
+.main-navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.main-navbar a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+
+.searchbar {
+  grid-area: searchbar;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: darkslategrey;
+}
+
+.searchbar img {
+  width: 50px;
+  height: auto;
+}
+
+.sidebar {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sidebar a {
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+#logo {
+  grid-area: logo;
+}
+
+#logo img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.sidebar {
+  background: #607B7D;
+  grid-area: sidebar;
+}
+
+.sidebar div img {
+  width: 70px;
+  height: auto;
+}
+
+#content1 {
+  background: #7A5C61;
+  grid-area: content1;
+  overflow: auto;
+}
+
+#content1 img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+#content2 {
+  background: #7A5C61;
+  grid-area: content2;
+  overflow: auto;
+}
+
+#content2 img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+#content3 {
+  background: #7A5C61;
+  grid-area: content3;
+  overflow: auto;
+}
+
+#content3 img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+#content4 {
+  background: #7A5C61;
+  grid-area: content4;
+  overflow: auto;
+}
+
+#content4 img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+footer {
+  color: #D7DAE5;
+  grid-area: footer;
+  text-align: right;
+}
+
+@media only screen and (max-width: 1280px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      'logo sidebar sidebar sidebar'
+      'main main main main'
+      'searchbar searchbar searchbar searchbar'
+      'content1 content2 content3 content4'
+      'footer footer footer footer';
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navigation {
+    display: flex;
+  }
+
+  .sidelink {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar a {
+    color: #000;
+    padding: 20px 30px;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  h2 {
+    display: none;
+  }
+
+  .sidebar .socials {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'sidebar'
+      'logo'
+      'main'
+      'searchbar'
+      'content1'
+      'content2'
+      'content3'
+      'content4'
+      'footer';
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar img {
+    display: none;
+  }
+
+  #logo img {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    display: block;
+  }
+
+  .main .main-navbar {
+    display: none;
+  }
+}
