@@ -37,36 +37,51 @@ ready(function () {
         });
     });
 
-    //  /path-to?key2=value1&key2=value2&key3=value3
-    /*  { key1: value1, key2: value2, key3: value3 }
-     */
-    document.querySelector("#launchtimesJSON").addEventListener("click", function (e) {
-        let something = null;
-        ajaxGET("/launchtimes?format=json", function (data) {
-            console.log("Before parsing", data);
-            // this call is JSON so we have to parse it:
-            let parsedData = JSON.parse(data);
-            something = parsedData;
-            console.log("what is something in the AJAX call?", something);
-            console.log("Before parsing", parsedData);
-            let str = "<ol>"
-            for (let i = 0; i < parsedData.length; i++) {
-                str += "<li>" + parsedData[i] + "</li>";
-            }
-            str += "</ol>";
-            document.getElementById("launchtimes-json").innerHTML = str;
-        });
-        console.log("what is something?", something);
-    });
-
     document.querySelector("#launchtimesHTML").addEventListener("click", function (e) {
         ajaxGET("/launchtimes?format=html", function (data) {
-            console.log(data);
-            // since it's HTML, let's drop it right in
-            document.getElementById("launchtimes-html").innerHTML = data;
+            let d1 = document.createElement("div");
+            d1.innerHTML = data;
+            d1.classList.add("popup");
+            let closeBtn = document.createElement("span");
+            closeBtn.innerHTML = "X";
+            closeBtn.classList.add("popup-close");
+            closeBtn.addEventListener("click", function () {
+                d1.parentNode.removeChild(d1);
+            });
+            d1.appendChild(closeBtn);
+            document.body.appendChild(d1);
         });
     });
 
+
+    document.querySelector("#launchtimesJSON").addEventListener("click", function (e) {
+        ajaxGET("/launchtimes?format=json", function (data) {
+            //console.log("before parsing", data);
+            // this call is JSON so we have to parse it:
+            let parsedData = JSON.parse(data);
+            let str = "<table>";
+            for (let i = 0; i < parsedData.length; i++) {
+                let item = parsedData[i];
+                str += "<tr><td>" + item["Mission"] + "</td><td>" + item["Date"]
+                    + "</td><td>" + item["Priority"]
+                    + "</td><td>" + item["Astronaut"]
+                    + "</td><td>" + item["description"] + "</td></tr><tr>";
+            }
+            str += "</table>";
+            let d1 = document.createElement("div");
+            d1.innerHTML = str;
+            d1.classList.add("popup");
+            let closeBtn = document.createElement("span");
+            closeBtn.innerHTML = "X";
+            closeBtn.classList.add("popup-close");
+            closeBtn.addEventListener("click", function () {
+                d1.parentNode.removeChild(d1);
+            });
+            d1.appendChild(closeBtn);
+            document.body.appendChild(d1);
+            console.log("after parsing", parsedData);
+        });
+    });
 });
 
 // callback function declaration
