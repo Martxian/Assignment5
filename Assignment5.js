@@ -20,52 +20,29 @@ app.get("/", function (req, res) {
     res.send(doc);
 });
 
-app.get("/hello", function (req, res) {
-    // just send some plain text
-    res.send("Hello world!");
-});
+/*
+ * This one accepts a query string
+ */
+app.get("/launchtimes", function (req, res) {
 
-app.get("/helloHTML", function (req, res) {
-    // hard-coded HTML
-    res.send("<html><head><title>Hi!</head><body><p>Hello!</p></body></html>");
-});
+    let formatOfResponse = req.query["format"];
 
-app.get("/profile", function (req, res) {
+    // e.g.,: http://localhost:8000/launchtimes?format=html
+    // e.g.,: http://localhost:8000/launchtimes?format=json
+    if (formatOfResponse == "html") {
+        // MIME type
+        res.setHeader("Content-Type", "text/html");
+        res.send(fs.readFileSync("./app/data/launchtimes.html", "utf8"));
 
-    let doc = fs.readFileSync("./app/html/profile.html", "utf8");
+    } else if (formatOfResponse == "json") {
+        // MIME type
+        res.setHeader("Content-Type", "application/json");
+        res.send(fs.readFileSync("./app/data/launchtimes.js", "utf8"));
 
-    // just send the text stream
-    res.send(doc);
-
-});
-
-app.get("/schedule", function (req, res) {
-
-    let doc = fs.readFileSync("./app/data/cstschedule.xml", "utf8");
-
-    // just send the text stream
-    res.send(doc);
-
-});
-
-app.get("/lists", function (req, res) {
-
-    let doc = fs.readFileSync("./app/data/lists.js", "utf8");
-
-    // just send the text stream
-    res.send(doc);
-
-});
-
-app.get("/date", function (req, res) {
-
-    // set the type of response:
-    res.setHeader("Content-Type", "application/json");
-    let options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-    let d = new Date();
-
-    res.send({ currentTime: d.toLocaleDateString("en-US", options) });
-
+    } else {
+        // just send JSON message
+        res.send({ status: "fail", msg: "Wrong format!" });
+    }
 });
 
 // for resource not found (i.e., 404)

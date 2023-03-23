@@ -40,9 +40,9 @@ ready(function () {
     //  /path-to?key2=value1&key2=value2&key3=value3
     /*  { key1: value1, key2: value2, key3: value3 }
      */
-    document.querySelector("#weekdaysJSON").addEventListener("click", function (e) {
+    document.querySelector("#launchtimesJSON").addEventListener("click", function (e) {
         let something = null;
-        ajaxGET("/weekdays?format=json", function (data) {
+        ajaxGET("/launchtimes?format=json", function (data) {
             console.log("Before parsing", data);
             // this call is JSON so we have to parse it:
             let parsedData = JSON.parse(data);
@@ -54,37 +54,16 @@ ready(function () {
                 str += "<li>" + parsedData[i] + "</li>";
             }
             str += "</ol>";
-            document.getElementById("weekdays-json").innerHTML = str;
+            document.getElementById("launchtimes-json").innerHTML = str;
         });
         console.log("what is something?", something);
     });
 
-    document.querySelector("#weekdaysHTML").addEventListener("click", function (e) {
-        ajaxGET("/weekdays?format=html", function (data) {
+    document.querySelector("#launchtimesHTML").addEventListener("click", function (e) {
+        ajaxGET("/launchtimes?format=html", function (data) {
             console.log(data);
             // since it's HTML, let's drop it right in
-            document.getElementById("weekdays-html").innerHTML = data;
-        });
-    });
-
-    // let's wire our ajax call function to an mouse click so we get data
-    // when the user clicks
-    document.querySelector("#marker").addEventListener("click", function (e) {
-        ajaxGET("/markers", function (data) {
-            //console.log("before parsing", data);
-            // this call is JSON so we have to parse it:
-            let parsedData = JSON.parse(data);
-            let str = "<table>";
-            for(let i = 0; i < parsedData.length; i++) {
-                let item = parsedData[i];
-                str += "<tr><td>" + item["title"] + "</td><td>" + item["lat"] + "</td><td>" + item["lng"]
-                    + "</td><td>" + item["description"] + "</td></tr><tr>";
-            }
-            str += "</table>";
-            let d1 = document.createElement("div");
-            d1.innerHTML = str;
-            document.body.appendChild(d1);
-            console.log("after parsing", parsedData);
+            document.getElementById("launchtimes-html").innerHTML = data;
         });
     });
 
